@@ -1,9 +1,9 @@
-#ifndef REPORT_H
+#ifndef REPORT_H // Tránh trùng lặp file
 #define REPORT_H
 
-#include "../utils.h"
+#include "../utils.h" // Các hàm tiện ích 
 #include "../product/product.h"
-#include "../customer/customer.h"
+#include "../customer/customer.h" 
 #include "../invoice/invoice.h" // Cần để truy vấn hóa đơn
 
 // Khai báo hàm báo cáo
