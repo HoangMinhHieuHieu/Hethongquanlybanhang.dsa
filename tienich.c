@@ -1,31 +1,52 @@
-#ifndef UTILS_H //Tránh bị include nhiều lần gây lỗi khai báo trùng.
-#define UTILS_H
+#include "utils.h"
 
-#include <stdio.h>   // Hàm nhập/xuất: printf, scanf, puts,...
-#include <stdlib.h>  // Hàm cấp phát bộ nhớ, thoát chương trình
-#include <string.h>  // Hàm xử lý chuỗi: strlen, strcpy, strcmp,...
-#include <time.h>  // Làm việc với thời gian: time_t, struct tm,..
-#include <ctype.h>  // Kiểm tra ký tự: isdigit, isalpha,...
+// Xóa các ký tự còn sót lại trong bộ đệm 
+void clearInputBuffer() {
+    while (getchar() != '\n');
+}
 
-// Xác định độ dài tối đa cho chuỗi:
-#define MAX_ID_LEN 10
-#define MAX_NAME_LEN 50
-#define MAX_PHONE_LEN 15
-#define MAX_INVOICE_ID_LEN 15
+// In thông báo, chờ người dùng nhấn Enter để tiếp tục chương trình.
+void pressEnterToContinue() {
+    printf("\nNhan Enter de tiep tuc...");
+    clearInputBuffer();
+    getchar();
+}
 
-// Tên file dữ liệu dùng để lưu thông tin sản phẩm, khách hàng, hóa đơn.
-#define PRODUCT_FILE "products.dat"
-#define CUSTOMER_FILE "customers.dat"
-#define INVOICE_FILE "invoices.dat"
+// Dùng sscanf để tách ngày, tháng, năm từ chuỗi. Nếu không đúng định dạng dd/mm/yyyy thì lỗi
+int isValidDate(const char* dateStr) {
+    int day, month, year;
+    if (sscanf(dateStr, "%d/%d/%d", &day, &month, &year) != 3)
+        return 0;
+    
+// Kiểm tra các giới hạn hợp lý cho ngày, tháng, năm.
+    if (year < 1900 || year > 2100) return 0;
+    if (month < 1 || month > 12) return 0;
+    if (day < 1 || day > 31) return 0;
+    
+    if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+        return 0;
+    
+    if (month == 2) {
+        int isLeap = (year % 400 == 0) || (year % 100 != 0 && year % 4 == 0);
+        if (day > (isLeap ? 29 : 28))
+            return 0;
+    }
+    
+    return 1;
+}
 
-// Định dạng ngày tháng khi in hoặc đọc ngày: dd/mm/yyyy
-#define DATE_FORMAT "%d/%m/%Y"
+// Kiểm tra từng ký tự trong số điện thoại
+int isValidPhone(const char* phone) {
+    for (int i = 0; phone[i] != '\0'; i++) {
+        if (!isdigit(phone[i]) && phone[i] != '+' && phone[i] != '-')
+            return 0;
+    }
+    return strlen(phone) >= 10 && strlen(phone) <= 15;
+}
 
-// Hàm tiện ích dùng chung
-void clearInputBuffer(); //Xóa ký tự thừa trong bộ đệm
-void pressEnterToContinue(); // In thông báo "Nhấn Enter để tiếp tục", dùng để tạm dừng màn hình
-int isValidDate(const char* dateStr); //Kiểm tra chuỗi ngày nhập vào có đúng định dạng và hợp lệ không
-int isValidPhone(const char* phone); //Kiểm tra số điện thoại hợp lệ (chỉ chứa số, độ dài hợp lý)
-char* formatTime(time_t time); //Trả về chuỗi định dạng thời gian từ time_t theo định dạng
-
-#endif
+// Dùng để chuyển thời gian kiểu time_t sang chuỗi định dạng "dd/mm/yyyy".
+char* formatTime(time_t time) {
+    static char buffer[20];
+    strftime(buffer, sizeof(buffer), DATE_FORMAT, localtime(&time));
+    return buffer;
+}
