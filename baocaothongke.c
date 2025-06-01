@@ -1,4 +1,9 @@
 #include "report.h"
+#include "../utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 void revenueReport() {
     char startStr[20], endStr[20];
@@ -62,4 +67,82 @@ void revenueReport() {
     printf("So luong hoa don: %d\n", invoiceCount);
     printf("Tong doanh thu: %.2f\n", totalRevenue);
     pressEnterToContinue();
+}
+
+void productStats() {
+    printf("\nTHONG KE SAN PHAM\n");
+    printf("%-10s %-20s %-10s %-10s\n", "Ma SP", "Ten SP", "Da ban", "Doanh thu");
+    printf("--------------------------------------------------\n");
+    
+    Product* p = productList;
+    while (p != NULL) {
+        int sold = 0;
+        float revenue = 0;
+        
+        Invoice* inv = invoiceList;
+        while (inv != NULL) {
+            InvoiceDetail* det = inv->details;
+            while (det != NULL) {
+                if (strcmp(det->productId, p->id) == 0) {
+                    sold += det->quantity;
+                    revenue += det->quantity * det->price;
+                }
+                det = det->next;
+            }
+            inv = inv->next;
+        }
+        
+        printf("%-10s %-20s %10d %10.2f\n", 
+               p->id, p->name, sold, revenue);
+        p = p->next;
+    }
+    
+    pressEnterToContinue();
+}
+
+void customerStats() {
+    printf("\nTHONG KE KHACH HANG\n");
+    printf("%-10s %-20s %-10s %-15s\n", "Ma KH", "Ten KH", "So HD", "Tong chi tieu");
+    printf("--------------------------------------------------\n");
+    
+    Customer* c = customerList;
+    while (c != NULL) {
+        int invoiceCount = 0;
+        float totalSpent = 0;
+        
+        Invoice* inv = invoiceList;
+        while (inv != NULL) {
+            if (strcmp(inv->customerId, c->id) == 0) {
+                invoiceCount++;
+                totalSpent += inv->total;
+            }
+            inv = inv->next;
+        }
+        
+        printf("%-10s %-20s %10d %15.2f\n", 
+               c->id, c->name, invoiceCount, totalSpent);
+        c = c->next;
+    }
+    
+    pressEnterToContinue();
+}
+
+void reportMenu() {
+    int choice;
+    do {
+        printf("\nBAO CAO - THONG KE\n");
+        printf("1. Thong ke doanh thu\n");
+        printf("2. Thong ke san pham\n");
+        printf("3. Thong ke khach hang\n");
+        printf("0. Quay lai\n");
+        printf("Lua chon cua ban: "); scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1: revenueReport(); break;
+            case 2: productStats(); break;
+            case 3: customerStats(); break;
+            case 0: break;
+            default: printf("Lua chon khong hop le!\n"); pressEnterToContinue();
+        }
+    } while (choice != 0);
 }
