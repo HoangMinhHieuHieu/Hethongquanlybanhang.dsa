@@ -10,12 +10,12 @@ struct DateTime {
     int hour, day, month, year;
 };
 
-// Cấu trúc lưu thông tin hóa đơn
+// Cấu trúc lưu thông tin hóa đơnn
 struct Invoice {
     char invoiceID[10]; // Mã hóa đơn
     char productID[10]; // Mã sản phẩm
     char customerID[10]; // Mã khách hàng
-    int quantity; // Số lượng
+    int quantity; // Số lượng.
     struct DateTime date; // Ngày mua
     float totalPrice; // Tổng giá (tự động tính)
 };
@@ -43,6 +43,6 @@ void searchInvoice(LinkedList list);
 void displayInvoice(LinkedList list);
 void statisticByDate(LinkedList list);
 void invoiceMenu(LinkedList* list);
-void mainMenu();
+
 
 #endif 
