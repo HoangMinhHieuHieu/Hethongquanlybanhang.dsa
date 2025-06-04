@@ -38,7 +38,8 @@ Invoice* findInvoiceById(const char* id) {
     return NULL;
 }
 
-void searchInvoice() {
+// Tìm kiếm hóa đơn
+void searchInvoice() { 
     char keyword[MAX_INVOICE_ID_LEN];
     printf("\nTIM KIEM HOA DON\n");
     printf("Nhap ma hoa don hoac ma khach hang: ");
@@ -67,7 +68,8 @@ void searchInvoice() {
     pressEnterToContinue();
 }
 
-void addInvoice() {
+// Tạo hóa đơn mới
+void addInvoice() { 
     char invoiceId[MAX_INVOICE_ID_LEN], customerId[MAX_ID_LEN];
     time_t now = time(NULL);
     
@@ -154,6 +156,7 @@ void addInvoice() {
     pressEnterToContinue();
 }
 
+// Hiển thị danh sách hóa đơn
 void displayInvoices() {
     printf("\nDANH SACH HOA DON\n");
     printf("%-15s %-10s %-20s %-15s\n", "Ma HD", "Ma KH", "Ngay", "Tong tien");
@@ -169,6 +172,7 @@ void displayInvoices() {
     pressEnterToContinue();
 }
 
+// Xem chi tiết hóa đơn
 void displayInvoiceDetails() {
     char invoiceId[MAX_INVOICE_ID_LEN];
     printf("\nXEM CHI TIET HOA DON\n");
@@ -205,6 +209,7 @@ void displayInvoiceDetails() {
     pressEnterToContinue();
 }
 
+// Lưu vào file
 void saveInvoicesToFile() {
     FILE* file = fopen(INVOICE_FILE, "wb");
     if (file == NULL) {
@@ -237,6 +242,7 @@ void saveInvoicesToFile() {
     fclose(file);
 }
 
+// Đọc từ file
 void loadInvoicesFromFile() {
     FILE* file = fopen(INVOICE_FILE, "rb");
     if (file == NULL) return;
@@ -280,6 +286,7 @@ void loadInvoicesFromFile() {
     fclose(file);
 }
 
+// Menu quản lý hóa đơn
 void invoiceMenu() {
     int choice;
     do {
