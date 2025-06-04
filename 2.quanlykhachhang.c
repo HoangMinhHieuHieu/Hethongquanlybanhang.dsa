@@ -26,6 +26,7 @@ Customer* findCustomerById(const char* id) {
     return NULL;
 }
 
+// Tìm kiếm khách hàng
 void searchCustomer() {
     char keyword[MAX_NAME_LEN];
     printf("\nTIM KIEM KHACH HANG\n");
@@ -55,6 +56,7 @@ void searchCustomer() {
     pressEnterToContinue();
 }
 
+// Thêm khách hàng mới
 void addCustomer() {
     char id[MAX_ID_LEN], name[MAX_NAME_LEN], phone[MAX_PHONE_LEN];
     
@@ -96,6 +98,7 @@ void addCustomer() {
     pressEnterToContinue();
 }
 
+ // Hiển thị danh sách khách hàng
 void displayCustomers() {
     printf("\nDANH SACH KHACH HANG\n");
     printf("%-10s %-20s %-15s\n", "Ma KH", "Ten KH", "So DT");
@@ -111,6 +114,7 @@ void displayCustomers() {
     pressEnterToContinue();
 }
 
+// Sửa thông tin khách hàng
 void editCustomer() {
     char id[MAX_ID_LEN];
     printf("\nSUA THONG TIN KHACH HANG\n");
@@ -153,6 +157,7 @@ void editCustomer() {
     pressEnterToContinue();
 }
 
+// Xóa khách hàng
 void deleteCustomer() {
     char id[MAX_ID_LEN];
     printf("\nXOA KHACH HANG\n");
@@ -184,6 +189,7 @@ void deleteCustomer() {
     pressEnterToContinue();
 }
 
+// Lưu vào file
 void saveCustomersToFile() {
     FILE* file = fopen(CUSTOMER_FILE, "wb");
     if (file == NULL) {
@@ -200,6 +206,7 @@ void saveCustomersToFile() {
     fclose(file);
 }
 
+// Đọc từ file
 void loadCustomersFromFile() {
     FILE* file = fopen(CUSTOMER_FILE, "rb");
     if (file == NULL) return;
@@ -222,6 +229,7 @@ void loadCustomersFromFile() {
     fclose(file);
 }
 
+ // Menu quản lý khách hàng
 void customerMenu() {
     int choice;
     do {
