@@ -27,6 +27,7 @@ Product* findProductById(const char* id) {
     return NULL;
 }
 
+// Tìm kiếm sản phẩm
 void searchProduct() {
     char keyword[MAX_NAME_LEN];
     printf("\nTIM KIEM SAN PHAM\n");
@@ -56,6 +57,7 @@ void searchProduct() {
     pressEnterToContinue();
 }
 
+// Thêm sản phẩm mới
 void addProduct() {
     char id[MAX_ID_LEN], name[MAX_NAME_LEN];
     float price;
@@ -94,6 +96,7 @@ void addProduct() {
     pressEnterToContinue();
 }
 
+// Hiển thị danh sách sản phẩm
 void displayProducts() {
     printf("\nDANH SACH SAN PHAM\n");
     printf("%-10s %-20s %-10s %-10s\n", "Ma SP", "Ten SP", "Gia", "SL Ton");
@@ -109,6 +112,7 @@ void displayProducts() {
     pressEnterToContinue();
 }
 
+// Sửa thông tin sản phẩm
 void editProduct() {
     char id[MAX_ID_LEN];
     printf("\nSUA THONG TIN SAN PHAM\n");
@@ -151,6 +155,7 @@ void editProduct() {
     pressEnterToContinue();
 }
 
+// Xóa sản phẩm
 void deleteProduct() {
     char id[MAX_ID_LEN];
     printf("\nXOA SAN PHAM\n");
@@ -182,6 +187,7 @@ void deleteProduct() {
     pressEnterToContinue();
 }
 
+// Lưu vào file
 void saveProductsToFile() {
     FILE* file = fopen(PRODUCT_FILE, "wb");
     if (file == NULL) {
@@ -198,6 +204,7 @@ void saveProductsToFile() {
     fclose(file);
 }
 
+// Đọc từ file
 void loadProductsFromFile() {
     FILE* file = fopen(PRODUCT_FILE, "rb");
     if (file == NULL) return;
@@ -220,6 +227,7 @@ void loadProductsFromFile() {
     fclose(file);
 }
 
+// Menu quản lý sản phẩm
 void productMenu() {
     int choice;
     do {
