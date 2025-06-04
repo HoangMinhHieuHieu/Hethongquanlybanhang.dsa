@@ -25,6 +25,22 @@ void initList(LinkedList* list) {
 int isEmpty(LinkedList list) {
     return list == NULL;
 }
+//===== KTRA NẾU TRÙNG =====
+int isDuplicateCustomer(LinkedList list, char id[], char phone[]) {
+    PNode ptr = list;
+    while (ptr != NULL) {
+        if (strcmp(ptr->data.id, id) == 0) {
+            printf("Loi: Ma khach hang da ton tai!\n");
+            return 1; // Trùng ID
+        }
+        if (strcmp(ptr->data.phone, phone) == 0) {
+            printf("Loi: So dien thoai da ton tai!\n");
+            return 1; // Trùng số điện thoại
+        }
+        ptr = ptr->next;
+    }
+    return 0; // Không trùng
+}
 
 // ===== THÊM KHÁCH HÀNG =====
 void insertCustomer(LinkedList* list) {
@@ -35,6 +51,12 @@ void insertCustomer(LinkedList* list) {
     scanf(" %[^\n]", c.name);
     printf("Nhap so dien thoai: ");
     scanf("%s", c.phone);
+
+    // Kiểm tra trùng ID hoặc số điện thoại
+    if (isDuplicateCustomer(*list, c.id, c.phone)) {
+        printf("Khong the them khach hang.\n");
+        return;
+    }
 
     PNode newNode = (PNode)malloc(sizeof(CustomerNode));
     newNode->data = c;
@@ -52,6 +74,7 @@ void insertCustomer(LinkedList* list) {
 
     printf("Them khach hang thanh cong!\n");
 }
+
 
 // ===== SỬa KHÁCH HÀNG =====
 void editCustomer(LinkedList* list) {
@@ -110,13 +133,13 @@ void deleteCustomer(LinkedList* list) {
 
 // ===== TÌM KIẾM KHÁCH HÀNG =====
 void searchCustomer(LinkedList list) {
-    char id[10];
-    printf("\nNhap ma khach hang can tim: ");
-    scanf("%s", id);
+    char name[50];
+    printf("\nNhap ten khach hang can tim: ");
+    scanf("%s", name);
 
     PNode ptr = list;
     while (ptr != NULL) {
-        if (strcmp(ptr->data.id, id) == 0) {
+        if (strcmp(ptr->data.name, name) == 0) {
             printf("\n-- Thong tin khach hang --\n");
             printf("Ma KH: %s\n", ptr->data.id);
             printf("Ten: %s\n", ptr->data.name);
@@ -126,7 +149,7 @@ void searchCustomer(LinkedList list) {
         ptr = ptr->next;
     }
 
-    printf("Khong tim thay khach hang co ma %s\n", id);
+    printf("Khong tim thay khach hang co ma %s\n", name);
 }
 
 // ===== HIỂN THỊ DANH SÁCH =====
@@ -190,4 +213,5 @@ int main() {
 
     return 0;
 }
+
 
