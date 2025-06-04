@@ -12,6 +12,3 @@ void productStats();  // Thống kê sản phẩm
 void customerStats(); // Thống kê khách hàng
 void reportMenu();    // Menu báo cáo
 #endif
-
-
-

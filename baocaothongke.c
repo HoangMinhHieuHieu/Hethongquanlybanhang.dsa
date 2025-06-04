@@ -5,6 +5,7 @@
 #include <string.h>
 #include <time.h>
 
+// Hàm thống kê doanh thu theo khoảng thời gian
 void revenueReport() {
     char startStr[20], endStr[20];
     printf("\nTHONG KE DOANH THU\n");
@@ -69,8 +70,9 @@ void revenueReport() {
     pressEnterToContinue();
 }
 
+// Hàm thống kê sản phẩm đã bán
 void productStats() {
-    printf("\nTHONG KE SAN PHAM\n");
+    printf("\nTHONG KE SAN PHAM\n"); // in tiêu đề bảng thống kê
     printf("%-10s %-20s %-10s %-10s\n", "Ma SP", "Ten SP", "Da ban", "Doanh thu");
     printf("--------------------------------------------------\n");
     
@@ -100,8 +102,9 @@ void productStats() {
     pressEnterToContinue();
 }
 
+// Hàm thống kê khách hàng
 void customerStats() {
-    printf("\nTHONG KE KHACH HANG\n");
+    printf("\nTHONG KE KHACH HANG\n"); // in tiêu đề thống kê khách hàng
     printf("%-10s %-20s %-10s %-15s\n", "Ma KH", "Ten KH", "So HD", "Tong chi tieu");
     printf("--------------------------------------------------\n");
     
@@ -127,6 +130,7 @@ void customerStats() {
     pressEnterToContinue();
 }
 
+// Hàm hiển thị menu báo cáo
 void reportMenu() {
     int choice;
     do {
