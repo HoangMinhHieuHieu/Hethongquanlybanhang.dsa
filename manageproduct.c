@@ -254,6 +254,74 @@ void freeList(Node** head) {
     }
     *head = NULL;
 }
+// Hiển thị 1 sản phẩm theo ID
+void showProductByID(ProductNode *head) {
+    char id[20];
+    printf("Nhập ID sản phẩm cần tìm: ");
+    getchar();
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = '\0';
+
+    ProductNode *current = head;
+    while (current != NULL) {
+        if (strcmp(current->data.id, id) == 0) {
+            printf("Sản phẩm được tìm thấy:\n");
+            printf("%-10s %-15s %-12s %-10s %-8s\n", "ID", "Name", "PriceImport", "PriceSale", "Qty");
+            printf("%-10s %-15s %-12.2lf %-10.2lf %-8d\n",
+                   current->data.id, current->data.name,
+                   current->data.priceImport, current->data.priceSale,
+                   current->data.quantity);
+            return;
+        }
+        current = current->next;
+    }
+    printf("Không tìm thấy sản phẩm với ID: %s\n", id);
+}
+
+// Giảm số lượng sản phẩm theo ID
+ProductNode* decreaseQuantity(ProductNode *head) {
+    char id[20];
+    int reduce;
+    printf("Nhập ID sản phẩm cần giảm số lượng: ");
+    getchar();
+    fgets(id, sizeof(id), stdin);
+    id[strcspn(id, "\n")] = '\0';
+
+    ProductNode *current = head;
+    while (current != NULL) {
+        if (strcmp(current->data.id, id) == 0) {
+            printf("Sản phẩm hiện tại có %d đơn vị.\n", current->data.quantity);
+            printf("Nhập số lượng muốn giảm: ");
+            scanf("%d", &reduce);
+
+            if (reduce <= 0) {
+                printf("Số lượng giảm phải > 0.\n");
+                return head;
+            }
+
+            if (reduce > current->data.quantity) {
+                printf("Không đủ hàng để giảm.\n");
+                return head;
+            }
+
+            current->data.quantity -= reduce;
+
+            if (current->data.quantity == 0) {
+                printf("Số lượng về 0. Xóa sản phẩm khỏi danh sách.\n");
+                head = deleteProduct(head, id);
+            } else {
+                printf("Đã giảm số lượng. Số còn lại: %d\n", current->data.quantity);
+            }
+
+            return head;
+        }
+        current = current->next;
+    }
+
+    printf("Không tìm thấy sản phẩm với ID: %s\n", id);
+    return head;
+}
+
 
 int main() {
     Node* head = NULL;
@@ -268,6 +336,8 @@ int main() {
         printf("3. Sửa thông tin sản phẩm\n");
         printf("4. Xóa sản phẩm\n");
         printf("5. Lưu danh sách ra file CSV\n");
+        printf("6. Hiển thị 1 sản phẩm theo ID\n");
+        printf("7. Giảm số lượng sản phẩm\n");
         printf("0. Thoát\n");
         printf("Chọn: ");
         scanf("%d", &choice);
@@ -288,6 +358,12 @@ int main() {
                 break;
             case 5:
                 writeToCSV(head);
+                break;
+            case 6:
+                showProductByID(head);
+                break;
+            case 7:
+                head = decreaseQuantity(head);
                 break;
             case 0:
                 printf("Thoát chương trình.\n");
