@@ -27,6 +27,7 @@ int main(){
     case 3:
     breaak;
     case 4:
+    reportMenu();
     break;
     case 0:
     cout << "kết thúc chương trình";
