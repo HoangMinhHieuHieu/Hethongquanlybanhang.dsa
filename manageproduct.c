@@ -323,7 +323,7 @@ ProductNode* decreaseQuantity(ProductNode *head) {
 }
 
 
-int main() {
+void productProgram() {
     Node* head = NULL;
     int choice;
 
