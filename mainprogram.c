@@ -20,11 +20,19 @@ int main(){
     productProgram();
     break;
     case 2:
+    LinkedList customerList;
+    initList(&customerList);
+    customerMenu(&customerList);
+    break;
     case 3:
+    breaak;
     case 4:
+    break;
     case 0:
+    cout << "kết thúc chương trình";
+    break;
     default:
     cout << "Lỗi. Vui lòng nhập lại";
-
+    break;
   }
 }
