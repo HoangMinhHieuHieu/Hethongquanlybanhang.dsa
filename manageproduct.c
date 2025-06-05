@@ -337,7 +337,6 @@ void productProgram() {
         printf("4. Xóa sản phẩm\n");
         printf("5. Lưu danh sách ra file CSV\n");
         printf("6. Hiển thị 1 sản phẩm theo ID\n");
-        printf("7. Giảm số lượng sản phẩm\n");
         printf("0. Thoát\n");
         printf("Chọn: ");
         scanf("%d", &choice);
@@ -361,9 +360,6 @@ void productProgram() {
                 break;
             case 6:
                 showProductByID(head);
-                break;
-            case 7:
-                head = decreaseQuantity(head);
                 break;
             case 0:
                 printf("Thoát chương trình.\n");
